@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import TodoCard from '../../../components/TodoCard';
+import styles from '../../../assets/styles/todoPage.module.css';
 
 export default function TodoList() {
 	const initData = [
@@ -23,27 +24,63 @@ export default function TodoList() {
 
 	const [listTodoTask, setListTodoTask] = useState(initData);
 
-	return (
-		<div className='px-3'>
-			<h1>Đây là danh sách Todo của bạn</h1>
+	const listTaskNew = listTodoTask.filter(o => o.status_id === 1);
+	const listTaskDone = listTodoTask.filter(o => o.status_id === 2);
 
-			<div className='row'>
-				<div className='col-3'>
-					<div className='card h-100'>
-						<div className='card-body'>
-							<button type='button' className='btn btn-primary' data-bs-toggle='modal' data-bs-target='#staticBackdrop'>
-								<span style={{ fontSize: '40px' }}>+</span>
-							</button>
+	const finishTask = task => {
+		const arr = [...listTodoTask];
+		const rslt = arr.findIndex(o => o.id === task.id);
+		console.log(task);
+		if (rslt !== -1) {
+			const obj = { ...arr[rslt] };
+			obj.status_id = 2;
+			arr.splice(rslt, 1, obj);
+			setListTodoTask(arr);
+		}
+	};
+
+	return (
+		<div className=''>
+			<div className={`${styles.banner} px-3`}>
+				<h1 className='text-white'>My todo</h1>
+			</div>
+			<div className='px-3 py-3'>
+				<div className={`my-2`}>
+					<button
+						type='button'
+						className={`btn text-white ${styles.btnAdd}`}
+						data-bs-toggle='modal'
+						data-bs-target='#staticBackdrop'
+					>
+						<i className='bi bi-plus-circle-dotted'></i> New Task
+					</button>
+				</div>
+				<div className={`${styles.taskContainer} px-2 py-3 row mx-0 my-0`}>
+					<div className='col-3'>
+						<div className='px-2 py-2 rounded bg-white text-dark mb-3'>
+							<h4 className='mb-0'>Đang làm</h4>
 						</div>
+						{listTaskNew.map(todo => {
+							return (
+								<div className='mb-3' key={todo.id}>
+									<TodoCard selectedData={todo} finishTask={finishTask} />
+								</div>
+							);
+						})}
+					</div>
+					<div className='col-3'>
+						<div className='px-2 py-2 rounded bg-white text-dark mb-3'>
+							<h4 className='mb-0'>Đã xong</h4>
+						</div>
+						{listTaskDone.map(todo => {
+							return (
+								<div className='mb-3' key={todo.id}>
+									<TodoCard selectedData={todo} finishTask={finishTask} />
+								</div>
+							);
+						})}
 					</div>
 				</div>
-				{listTodoTask.map(todo => {
-					return (
-						<div className='col-3' key={todo.id}>
-							<TodoCard selectedData={todo} />
-						</div>
-					);
-				})}
 			</div>
 
 			<div
@@ -51,7 +88,7 @@ export default function TodoList() {
 				id='staticBackdrop'
 				data-bs-backdrop='static'
 				data-bs-keyboard='false'
-				tabindex='-1'
+				tabIndex='-1'
 				aria-labelledby='staticBackdropLabel'
 				aria-hidden='true'
 			>

@@ -1,0 +1,27 @@
+.todoCardContainer {
+	border-radius: 16px;
+	border: none;
+}
+
+.todoCardContainer.onSuccess {
+	background-color: rgba(113, 221, 176, 0.667);
+}
+
+.todoDescription {
+	font-size: 24px;
+	padding-right: 24px;
+	width: 100%;
+}
+
+.buttonCheck {
+	padding: 4px !important;
+	width: 32px;
+	height: 32px;
+	box-sizing: border-box;
+}
+.buttonContainer {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+	position: relative;
+}

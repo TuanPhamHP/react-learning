@@ -1,0 +1,16 @@
+.banner {
+	background-color: red;
+	height: 320px;
+	padding-top: 200px;
+	box-sizing: border-box;
+	background-image: url('https://accgroup.vn/wp-content/uploads/2023/02/Background-la-gi.jpg.webp');
+	background-size: cover;
+	background-position: top;
+}
+.taskContainer {
+	background-color: #f9f9f9;
+}
+
+.btnAdd {
+	background-color: #fa9639 !important;
+}

@@ -1,6 +1,6 @@
+// gọi đến component được cung cấp bở package
 import { Routes, Route } from 'react-router-dom';
 
-// page components
 import IndexPage from '../pages/index';
 import TodoList from '../pages/todo/list/index';
 import NotFoundPage from '../pages/404';
