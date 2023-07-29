@@ -2,8 +2,15 @@ import { Link, NavLink } from 'react-router-dom';
 
 import styles from '../../assets/styles/sidebar.module.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import { selectCount } from '../../store/counter';
+import { useSelector, useDispatch } from 'react-redux';
 
 function Sidebar() {
+	const storeCounter = useSelector(selectCount);
+	const counter = storeCounter.numb;
+
+	console.log(storeCounter);
+
 	const sidebarStyles = {
 		width: '280px',
 		minWidth: '280px',
@@ -21,6 +28,7 @@ function Sidebar() {
 					<span className={styles.textPr}>TASK</span>
 				</p>
 			</div>
+			<p className='text-center'>{counter}</p>
 
 			<ul className='list-group rounded-0 px-2 '>
 				<li className={`bg-transparent list-group-item border-0 px-0 ${styles.navLinkItem}`}>

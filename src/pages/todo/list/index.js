@@ -1,43 +1,54 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import TodoCard from '../../../components/TodoCard';
 import styles from '../../../assets/styles/todoPage.module.css';
+import { getListTodo, setTodoDone, removeTodo } from '../../../services/fakeData';
 
 export default function TodoList() {
-	const initData = [
-		{
-			id: 1,
-			description: 'Hôm nay cần học lại react-router và tìm hiểu react-redux',
-			created_at: '2023/07/25 20:30:00',
-			estimate_finish: null,
-			status_id: 1,
-			prio_id: 1,
-		},
-		{
-			id: 2,
-			description: 'Mai cần đi làm',
-			created_at: '2023/07/25 20:30:00',
-			estimate_finish: null,
-			status_id: 1,
-			prio_id: 1,
-		},
-	];
+	const [listTodoTask, setListTodoTask] = useState([]);
 
-	const [listTodoTask, setListTodoTask] = useState(initData);
+	// fake lấy data trên server
+
+	const getListData = () => {
+		setTimeout(() => {
+			const listData = getListTodo();
+			setListTodoTask(listData); // a
+		}, 2000);
+	};
 
 	const listTaskNew = listTodoTask.filter(o => o.status_id === 1);
 	const listTaskDone = listTodoTask.filter(o => o.status_id === 2);
 
-	const finishTask = task => {
-		const arr = [...listTodoTask];
-		const rslt = arr.findIndex(o => o.id === task.id);
-		console.log(task);
-		if (rslt !== -1) {
-			const obj = { ...arr[rslt] };
-			obj.status_id = 2;
-			arr.splice(rslt, 1, obj);
-			setListTodoTask(arr);
+	const finishTask = todoId => {
+		const newListData = setTodoDone(todoId);
+
+		if (!newListData) {
+			alert('không tìm thấy bản ghi');
+			return;
 		}
+		// setListTodoTask(newListData); // a
+		setListTodoTask([...newListData]); // b
+		console.log(listTodoTask);
+		// getListData();
 	};
+	const removeTask = todoId => {
+		const newListData = removeTodo(todoId);
+
+		if (!newListData) {
+			alert('không tìm thấy bản ghi');
+			return;
+		}
+		// setListTodoTask(newListData); // a
+		setListTodoTask([...newListData]); // b
+		console.log(listTodoTask);
+		// getListData();
+	};
+
+	useEffect(() => {
+		// component lifecycle
+		getListData();
+	}, []);
+
+	//
 
 	return (
 		<div className=''>
@@ -63,7 +74,7 @@ export default function TodoList() {
 						{listTaskNew.map(todo => {
 							return (
 								<div className='mb-3' key={todo.id}>
-									<TodoCard selectedData={todo} finishTask={finishTask} />
+									<TodoCard selectedData={todo} finishTask={finishTask} removeTask={removeTask} />
 								</div>
 							);
 						})}
@@ -75,7 +86,7 @@ export default function TodoList() {
 						{listTaskDone.map(todo => {
 							return (
 								<div className='mb-3' key={todo.id}>
-									<TodoCard selectedData={todo} finishTask={finishTask} />
+									<TodoCard selectedData={todo} finishTask={finishTask} removeTask={removeTask} />
 								</div>
 							);
 						})}

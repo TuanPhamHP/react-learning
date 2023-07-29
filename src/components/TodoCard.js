@@ -1,6 +1,7 @@
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import styles from '../assets/styles/todoCard.module.css';
-export default function Card({ selectedData, finishTask }) {
+
+export default function Card({ selectedData, finishTask, removeTask }) {
 	return (
 		<div className={`card h-100 ${styles.todoCardContainer} ${styles.onSuccess}`}>
 			<div className={`card-body d-flex flex-column justify-content-between`}>
@@ -13,7 +14,7 @@ export default function Card({ selectedData, finishTask }) {
 							className={`btn btn-outline-success rounded-circle ${styles.buttonCheck}`}
 							title='Done!'
 							onClick={() => {
-								finishTask(selectedData);
+								finishTask(selectedData.id);
 							}}
 						>
 							<i className='bi bi-check-all'></i>
@@ -23,12 +24,15 @@ export default function Card({ selectedData, finishTask }) {
 							className={`btn btn-outline-primary rounded-circle ${styles.buttonCheck}`}
 							title='Back To New!'
 						>
-							<i class='bi bi-arrow-counterclockwise'></i>
+							<i className='bi bi-arrow-counterclockwise'></i>
 						</button>
 						<button
 							type='button'
 							className={`btn btn-outline-danger rounded-circle ${styles.buttonCheck}`}
 							title='Remove!'
+							onClick={() => {
+								removeTask(selectedData.id);
+							}}
 						>
 							<i className='bi bi-trash'></i>
 						</button>
