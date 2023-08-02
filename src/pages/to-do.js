@@ -7,7 +7,7 @@ export default function TodoPage() {
 		{
 			id: 1,
 			title: 'Đây là title',
-			amount: 50000,
+			amount: 100000,
 			type: 'income',
 		},
 	];
@@ -54,7 +54,7 @@ export default function TodoPage() {
 					<div className='row'>
 						<div className='col-4'>
 							{listData.map(data => {
-								return <Card key={data.id} />;
+								return <Card key={data.id} todo={data} dataId={data.id} />;
 							})}
 						</div>
 					</div>
