@@ -17,10 +17,6 @@ export default function TodoPage() {
 		type: 'income',
 	});
 
-	const changeType = e => {
-		console.log(e);
-	};
-
 	const handleChangeFormData = e => {
 		// e event
 		const myValue = e.target.value; // giá trị người dùng nhập
@@ -33,7 +29,7 @@ export default function TodoPage() {
 
 	const handleSubmitData = () => {
 		const obj = { ...form, id: new Date().getTime() };
-		if (!obj.title || !obj.amount) {
+		if (!obj.title) {
 			alert('Chưa nhập đủ giá trị');
 			return;
 		}
@@ -47,22 +43,14 @@ export default function TodoPage() {
 
 	const removeData = dataId => {
 		const listDataCopy = [...listData];
-
-		// tìm vị trí phần tử có id trùng với id được truyền vào từ biến dataId
 		const matchIdx = listDataCopy.findIndex(todo => {
 			return todo.id === dataId;
 		});
 
-		// nếu khác -1 thì => có phần tử có id trùng với dataId và vị trí là tại matchIdx
 		if (matchIdx !== -1) {
 			listDataCopy.splice(matchIdx, 1);
 			setListData(listDataCopy);
 		}
-	};
-
-	const removeData2 = dataId => {
-		const listDataCopy = listData.filter(todo => todo.id !== dataId);
-		setListData(listDataCopy);
 	};
 
 	return (
@@ -84,30 +72,6 @@ export default function TodoPage() {
 							onChange={handleChangeFormData}
 						/>
 					</div>
-
-					<div className='mb-3'>
-						<label htmlFor='amountIput' className='form-label'>
-							Số tiền
-						</label>
-						<input
-							value={form.amount}
-							type='number'
-							className='form-control'
-							id='amountIput'
-							name='amount'
-							placeholder='Số tiền'
-							onChange={handleChangeFormData}
-						/>
-					</div>
-					<div className='mb-3'>
-						<label htmlFor='amountIput' className='form-label'>
-							Loại
-						</label>
-						<select className='form-select' name='type' value={form.type} onChange={handleChangeFormData}>
-							<option value='income'>Thu nhập</option>
-							<option value='outcome'>Chi tiêu</option>
-						</select>
-					</div>
 					<div className='mb-0'>
 						<button className='btn btn-success d-block w-100' onClick={handleSubmitData}>
 							Thêm
@@ -120,7 +84,7 @@ export default function TodoPage() {
 
 					<div className='row'>
 						{listData.map(data => {
-							return <Card key={data.id} todo={data} removeData={removeData2} />;
+							return <Card key={data.id} todo={data} removeData={removeData} />;
 						})}
 					</div>
 				</div>
