@@ -37,6 +37,17 @@ export default function Header() {
 								My Todo
 							</NavLink>
 						</li>
+						<li className='nav-item'>
+							<NavLink
+								to='/to-do-simple'
+								style={navItem}
+								className={({ isActive, isPending }) =>
+									isPending ? 'pending' : isActive ? 'text-info rounded bg-white' : ''
+								}
+							>
+								My Todo Simple
+							</NavLink>
+						</li>
 					</ul>
 				</div>
 			</div>
