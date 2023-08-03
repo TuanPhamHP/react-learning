@@ -1,57 +1,26 @@
 import React, { useState } from 'react';
 
-import Card from '../components/Card';
+import TodoCard from '../components/TodoCard';
 
 export default function TodoPage() {
-	const initData = [
+	const [listData, setListData] = useState([
 		{
 			id: 1,
-			title: 'Đây là title',
-			amount: 100000,
-			type: 'income',
+			title: 'Công việc A',
+			status: 1,
 		},
-	];
-
-	const [listData, setListData] = useState(initData);
-	const [form, setForm] = useState({
-		type: 'income',
-	});
-
-	const handleChangeFormData = e => {
-		// e event
-		const myValue = e.target.value; // giá trị người dùng nhập
-		const myKey = e.target.name; // dùng để lấy key từ thuộc tính name của target
-		setForm({
-			...form,
-			[myKey]: myValue,
-		});
-	};
-
-	const handleSubmitData = () => {
-		const obj = { ...form, id: new Date().getTime() };
-		if (!obj.title) {
-			alert('Chưa nhập đủ giá trị');
-			return;
-		}
-		setListData([...listData, obj]);
-		setForm({
-			type: 'income',
-			title: '',
-			amount: '',
-		});
-	};
-
-	const removeData = dataId => {
-		const listDataCopy = [...listData];
-		const matchIdx = listDataCopy.findIndex(todo => {
-			return todo.id === dataId;
-		});
-
-		if (matchIdx !== -1) {
-			listDataCopy.splice(matchIdx, 1);
-			setListData(listDataCopy);
-		}
-	};
+		{
+			id: 2,
+			title: 'Công việc B',
+			status: 2,
+		},
+		{
+			id: 3,
+			title: 'Công việc C',
+			status: 1,
+		},
+	]);
+	const [form, setForm] = useState({});
 
 	return (
 		<div>
@@ -69,13 +38,10 @@ export default function TodoPage() {
 							id='exampleFormControlInput1'
 							name='title'
 							placeholder='Tiêu đề'
-							onChange={handleChangeFormData}
 						/>
 					</div>
 					<div className='mb-0'>
-						<button className='btn btn-success d-block w-100' onClick={handleSubmitData}>
-							Thêm
-						</button>
+						<button className='btn btn-success d-block w-100'>Thêm</button>
 					</div>
 				</div>
 
@@ -83,9 +49,16 @@ export default function TodoPage() {
 					{/* Khối render ra danh sách */}
 
 					<div className='row'>
-						{listData.map(data => {
-							return <Card key={data.id} todo={data} removeData={removeData} />;
-						})}
+						<div className='col-6'>
+							<h1>Việc cần làm</h1>
+
+							{listData.map(item => {
+								return <TodoCard key={item.id} task={item} />;
+							})}
+						</div>
+						<div className='col-6'>
+							<h1>Việc đã hoàn thành</h1>
+						</div>
 					</div>
 				</div>
 			</div>

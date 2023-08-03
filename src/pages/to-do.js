@@ -10,16 +10,18 @@ export default function TodoPage() {
 			amount: 100000,
 			type: 'income',
 		},
+		{
+			id: 2,
+			title: 'Đây là title',
+			amount: 100000,
+			type: 'income',
+		},
 	];
 
 	const [listData, setListData] = useState(initData);
 	const [form, setForm] = useState({
 		type: 'income',
 	});
-
-	const changeType = e => {
-		console.log(e);
-	};
 
 	const handleChangeFormData = e => {
 		// e event
@@ -45,19 +47,21 @@ export default function TodoPage() {
 		});
 	};
 
-	const removeData = dataId => {
-		const listDataCopy = [...listData];
+	const changeType = dataId => {
+		const newArray = listData.map(item => {
+			if (item.id === dataId) {
+				// if (item.type === 'outcome') {
+				// 	item.type = 'income';
+				// } else {
+				// 	item.type = 'outcome';
+				// }
 
-		// tìm vị trí phần tử có id trùng với id được truyền vào từ biến dataId
-		const matchIdx = listDataCopy.findIndex(todo => {
-			return todo.id === dataId;
+				item.type = item.type === 'outcome' ? 'income' : 'outcome';
+			}
+			return item;
 		});
 
-		// nếu khác -1 thì => có phần tử có id trùng với dataId và vị trí là tại matchIdx
-		if (matchIdx !== -1) {
-			listDataCopy.splice(matchIdx, 1);
-			setListData(listDataCopy);
-		}
+		setListData(newArray);
 	};
 
 	const removeData2 = dataId => {
@@ -120,7 +124,7 @@ export default function TodoPage() {
 
 					<div className='row'>
 						{listData.map(data => {
-							return <Card key={data.id} todo={data} removeData={removeData2} />;
+							return <Card key={data.id} todo={data} removeData={removeData2} changeType={changeType} />;
 						})}
 					</div>
 				</div>

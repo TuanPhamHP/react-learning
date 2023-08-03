@@ -19,7 +19,7 @@ export default function Card(props) {
 	// console.log('todo đây:', todo);
 
 	// dùng syntax destructoring
-	const { todo, removeData } = props;
+	const { todo, removeData, changeType } = props;
 
 	return (
 		<div className='col-4 mb-3'>
@@ -39,10 +39,25 @@ export default function Card(props) {
 						>
 							Xóa
 						</button>
-						<button className='btn btn-primary px-4'>Đổi kiểu</button>
+						<button
+							className='btn btn-primary px-4'
+							onClick={() => {
+								changeType(todo.id);
+							}}
+						>
+							Đổi kiểu
+						</button>
 					</div>
 				</div>
 			</div>
 		</div>
 	);
 }
+
+// Router: 4
+// C: 4
+// R: 3
+// U: 3
+// R: 3
+
+// UI + Valid data : 3
