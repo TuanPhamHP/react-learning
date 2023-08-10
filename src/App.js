@@ -7,7 +7,9 @@ function App() {
 	return (
 		<div className='App'>
 			<Header />
-			<AppRoutes />
+			<div className='py-2 px-2'>
+				<AppRoutes />
+			</div>
 		</div>
 	);
 }

@@ -11,7 +11,7 @@ export default function Header() {
 	};
 
 	return (
-		<nav className='navbar navbar-expand-lg navbar-dark bg-info sticky-top shadow'>
+		<nav className='navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow'>
 			<div className='container-fluid'>
 				<div className='collapse navbar-collapse' id='navbarNav'>
 					<ul className='navbar-nav ms-auto'>
@@ -20,13 +20,13 @@ export default function Header() {
 								to='/'
 								style={navItem}
 								className={({ isActive, isPending }) =>
-									isPending ? 'pending' : isActive ? 'text-info rounded bg-white' : ''
+									isPending ? 'pending' : isActive ? 'text-white border-bottom border-2 border-white' : 'text-white'
 								}
 							>
 								Trang chủ
 							</NavLink>
 						</li>
-						<li className='nav-item'>
+						{/* <li className='nav-item'>
 							<NavLink
 								to='/to-do'
 								style={navItem}
@@ -36,16 +36,16 @@ export default function Header() {
 							>
 								My Todo
 							</NavLink>
-						</li>
+						</li> */}
 						<li className='nav-item'>
 							<NavLink
-								to='/to-do-simple'
+								to='/stream/example'
 								style={navItem}
 								className={({ isActive, isPending }) =>
-									isPending ? 'pending' : isActive ? 'text-info rounded bg-white' : ''
+									isPending ? 'pending' : isActive ? 'text-white border-bottom border-2 border-white' : 'text-white'
 								}
 							>
-								My Todo Simple
+								Stream
 							</NavLink>
 						</li>
 					</ul>

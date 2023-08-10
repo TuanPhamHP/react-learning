@@ -55,6 +55,7 @@ export default function Card(props) {
 }
 
 // Router: 4
+// cài đặt + setup
 // C: 4
 // R: 3
 // U: 3
